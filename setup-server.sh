@@ -1,31 +1,30 @@
 #!/bin/bash
 
+echo "Installing Nginx..."
 # Install Nginx
 sudo apt update
 sudo apt install nginx -y
 
+echo "Enabling Nginx..."
 # Enable Nginx
 sudo systemctl enable nginx
 sudo systemctl start nginx
 
-# Allow Nginx Full in UFW
-sudo ufw enable
+echo "Allowing Nginx Full and OpenSSH in UFW..."
+# Allow Nginx Full and OpenSSH in UFW
 sudo ufw allow 'Nginx Full'
+sudo ufw allow 'OpenSSH'
 
+echo "Enabling UFW..."
+# Enable UFW
+sudo ufw enable
+
+echo "Installing NVM (Node Version Manager)..."
 # Install NVM (Node Version Manager)
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 
+echo "Sourcing NVM script..."
 # Source NVM script
 source ~/.bashrc
 
-# Print available Node.js versions using NVM
-echo "Available Node.js versions:"
-nvm ls-remote
-
-# Ask user for Node.js version to install
-read -p "Enter Node.js version from the above list (e.g., 14.17.6): " node_version
-
-# Install Node.js using NVM
-nvm install $node_version
-
-echo "Installation completed: Nginx and Node.js ($node_version) are installed and enabled."
+echo "Installation completed: Nginx, OpenSSH, and NVM are installed and enabled."
